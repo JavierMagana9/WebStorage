@@ -19,29 +19,30 @@ const arrayListaCompra = [];
 document.addEventListener("click", (ev) => {
 
     const producto = ev.target.id
+    
+    const todo = ev.target
+    console.log(todo)
+    if (arrayProductos.includes(producto)) {
+        meterProducto(producto)
+        pintaListaCompra()
+    }
+    if (producto.startsWith('eliminar')) {
+        btnEliminar(producto.replace('eliminar', ''))
+    }
 
-
-    arrayProductos.forEach((input) => {
-
-        if (producto === input) {
-            meterProducto(producto)
-        }
-        else if (producto === `eliminar${input}`) {
-            btnEliminar(input)
-        }
-            pintaListaCompra()
-
-    })
-    if(producto === borrarTodo){
+    if (todo === borrarTodo) {
         borraAbajo()
     }
-    console.log(borraAbajo())
-})
+    
+},false)
 
 
 //3.Que acciones necesito?? Pintar el arrayProductos, con botones a sus lados/ Pintar la lista de la compra/borrar en el boton borrar lista
 
 const pintaProductos = () => {
+   // localStorage.setItem("productos", arrayLocalStorage)
+
+    //const arrayLocalStorage = JSON.parse(localStorage.getItem("productos")) || [];
 
     arrayProductos.forEach((item) => {
         const li = document.createElement('LI')
@@ -51,7 +52,6 @@ const pintaProductos = () => {
     });
 
     productosLista.append(fragment)
-
 }
 
 const meterProducto = (producto) => {
@@ -76,18 +76,22 @@ const pintaListaCompra = () => {
     // console.log(listaImportada)
 }
 
-const btnEliminar = () => {
+const btnEliminar = (producto) => {
+    let listaImportada = JSON.parse(localStorage.getItem('arrayListaCompra')) || [];
 
+    listaImportada = listaImportada.filter(item => item !== producto);
 
+    localStorage.setItem("arrayListaCompra", JSON.stringify(listaImportada));
+    pintaListaCompra();
 }
 
 const borraAbajo = () => {
-    const listaImportada = JSON.parse(localStorage.getItem('arrayListaCompra')) || [];
+    //const listaImportada = JSON.parse(localStorage.removeItem('arrayListaCompra')) || [];
+    laLista.innerHTML = ''
+    localStorage.removeItem('arrayListaCompra')
     
-    //localStorage.removeItem('arrayListaCompra')
-
+    
+    pintaListaCompra()
 }
-
-
 
 pintaProductos()

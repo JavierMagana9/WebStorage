@@ -42,10 +42,11 @@ const arrayListaCompra = [];
 
 una vez decidido esto, pense que acciones necesitaba:
 
-1. pintar la lista de productos: 
+1. pintar la lista de productos
+explicar funcion y cada parte de la funcion: 
 
 
-´´´js
+```js
 
 const pintaProductos = () => {
 
